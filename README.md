@@ -1,5 +1,6 @@
 # TerrainGame
 (3D)
+
 The scope of this game is to allow students to get familiar with the Terrain Editor available in Unity.
 Rather than a complete game, the product is in this case a very polished demo scene with simple (but many) assets. 
 
