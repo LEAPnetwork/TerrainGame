@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: dfd1bce111c1e4f4888caf86a4034e05
+timeCreated: 1459243141
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: pasted__group10
+    100002: pasted__pasted__pCone11
+    100004: pasted__pCone11
+    100006: pasted__pCone15
+    100008: pasted__pCone16
+    100010: pasted__pCone18
+    100012: pasted__pCone21
+    100014: pasted__pCone22
+    100016: pasted__pCone25
+    100018: pasted__pCone6
+    100020: //RootNode
+    100022: thinSpike
+    100024: thinSpike1
+    100026: thinSpike2
+    100028: thinSpike3
+    100030: thinSpike4
+    100032: thinSpike5
+    100034: thinSpike6
+    100036: thinSpike7
+    100038: thinSpike8
+    400000: pasted__group10
+    400002: pasted__pasted__pCone11
+    400004: pasted__pCone11
+    400006: pasted__pCone15
+    400008: pasted__pCone16
+    400010: pasted__pCone18
+    400012: pasted__pCone21
+    400014: pasted__pCone22
+    400016: pasted__pCone25
+    400018: pasted__pCone6
+    400020: //RootNode
+    400022: thinSpike
+    400024: thinSpike1
+    400026: thinSpike2
+    400028: thinSpike3
+    400030: thinSpike4
+    400032: thinSpike5
+    400034: thinSpike6
+    400036: thinSpike7
+    400038: thinSpike8
+    2300000: pasted__pasted__pCone11
+    2300002: pasted__pCone11
+    2300004: pasted__pCone15
+    2300006: pasted__pCone16
+    2300008: pasted__pCone18
+    2300010: pasted__pCone21
+    2300012: pasted__pCone22
+    2300014: pasted__pCone25
+    2300016: pasted__pCone6
+    2300018: thinSpike
+    2300020: thinSpike1
+    2300022: thinSpike2
+    2300024: thinSpike3
+    2300026: thinSpike4
+    2300028: thinSpike5
+    2300030: thinSpike6
+    2300032: thinSpike7
+    2300034: thinSpike8
+    3300000: pasted__pasted__pCone11
+    3300002: pasted__pCone11
+    3300004: pasted__pCone15
+    3300006: pasted__pCone16
+    3300008: pasted__pCone18
+    3300010: pasted__pCone21
+    3300012: pasted__pCone22
+    3300014: pasted__pCone25
+    3300016: pasted__pCone6
+    3300018: thinSpike
+    3300020: thinSpike1
+    3300022: thinSpike2
+    3300024: thinSpike3
+    3300026: thinSpike4
+    3300028: thinSpike5
+    3300030: thinSpike6
+    3300032: thinSpike7
+    3300034: thinSpike8
+    4300000: pasted__pCone25
+    4300002: pasted__pCone22
+    4300004: pasted__pCone21
+    4300006: pasted__pCone18
+    4300008: pasted__pCone16
+    4300010: pasted__pCone15
+    4300012: pasted__pCone11
+    4300014: pasted__pCone6
+    4300016: pasted__pasted__pCone11
+    4300018: thinSpike
+    4300020: thinSpike1
+    4300022: thinSpike2
+    4300024: thinSpike3
+    4300026: thinSpike4
+    4300028: thinSpike5
+    4300030: thinSpike6
+    4300032: thinSpike7
+    4300034: thinSpike8
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
