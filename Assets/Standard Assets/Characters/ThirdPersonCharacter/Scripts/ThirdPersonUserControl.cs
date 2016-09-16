@@ -13,6 +13,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
         private Vector3 m_Strafe;
+        private Vector3 m_TurnAmount;
         
         private void Start()
         {
@@ -70,16 +71,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
 
-            m_Strafe = h * m_Cam.right;
+      
 
-            Debug.Log(m_Strafe);
-
-            m_Move = v * m_CamForward + m_Strafe;
+            m_Move = new Vector3(h, 0f, v);
 
 
+
+            m_TurnAmount = Vector3.RotateTowards(Vector3.Scale(transform.forward, new Vector3(1, 0, 1)).normalized, m_CamForward, 1, 1);
+
+            Debug.Log(Vector3.RotateTowards(Vector3.Scale(transform.forward, new Vector3(1, 0, 1)).normalized, m_CamForward, 1, 1));
 
             // pass all parameters to the character control script
-            m_Character.Move(m_Move, false, m_Jump);
+            m_Character.Move(m_Move, m_TurnAmount, m_Jump);
             m_Jump = false;
         }
     }
