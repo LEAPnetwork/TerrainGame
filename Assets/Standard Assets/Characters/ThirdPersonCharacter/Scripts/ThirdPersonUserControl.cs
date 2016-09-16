@@ -12,7 +12,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-
+        private Vector3 m_Strafe;
         
         private void Start()
         {
@@ -30,7 +30,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
-
+        /*
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
@@ -58,6 +58,28 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
+            m_Jump = false;
+        }
+        */
+
+        private void FixedUpdate()
+        {
+            // read inputs
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
+            float v = CrossPlatformInputManager.GetAxis("Vertical");
+
+            m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
+
+            m_Strafe = h * m_Cam.right;
+
+            Debug.Log(m_Strafe);
+
+            m_Move = v * m_CamForward + m_Strafe;
+
+
+
+            // pass all parameters to the character control script
+            m_Character.Move(m_Move, false, m_Jump);
             m_Jump = false;
         }
     }

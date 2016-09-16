@@ -52,31 +52,43 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// direction.
 			if (move.magnitude > 1f) move.Normalize();
 			move = transform.InverseTransformDirection(move);
-			CheckGroundStatus();
 			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 			m_TurnAmount = Mathf.Atan2(move.x, move.z);
 			m_ForwardAmount = move.z;
 
-			ApplyExtraTurnRotation();
-
 			// control and velocity handling is different when grounded and airborne:
 			if (m_IsGrounded)
-			{
-				HandleGroundedMovement(crouch, jump);
-			}
-			else
 			{
 				HandleAirborneMovement();
 			}
 
-			ScaleCapsuleForCrouching(crouch);
-			PreventStandingInLowHeadroom();
-
-			// send input and other state parameters to the animator
 			UpdateAnimator(move);
 		}
 
+        void UpdateAnimator(Vector3 move)
+        {
+            // update the animator parameters
+            m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
+            m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 
+        }
+
+        void HandleAirborneMovement()
+        {
+
+            var locVel = transform.InverseTransformDirection(m_Rigidbody.velocity);
+            locVel.z = Input.GetAxis("Vertical") * m_AirControl;
+            locVel.x = Input.GetAxis("Horizontal") * m_AirControl;
+
+            m_Rigidbody.velocity = transform.TransformDirection(locVel);
+
+            Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+            m_Rigidbody.AddForce(extraGravityForce);
+
+            m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+        }
+
+        /*
 		void ScaleCapsuleForCrouching(bool crouch)
 		{
 			if (m_IsGrounded && crouch)
@@ -121,45 +133,22 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// update the animator parameters
 			m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
-			m_Animator.SetBool("Crouch", m_Crouching);
-			m_Animator.SetBool("OnGround", m_IsGrounded);
-			if (!m_IsGrounded)
-			{
-				m_Animator.SetFloat("Jump", m_Rigidbody.velocity.y);
-			}
 
-			// calculate which leg is behind, so as to leave that leg trailing in the jump animation
-			// (This code is reliant on the specific run cycle offset in our animations,
-			// and assumes one leg passes the other at the normalized clip times of 0.0 and 0.5)
-			float runCycle =
-				Mathf.Repeat(
-					m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
-			float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
-			if (m_IsGrounded)
-			{
-				m_Animator.SetFloat("JumpLeg", jumpLeg);
-			}
 
-			// the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
-			// which affects the movement speed because of the root motion.
-			if (m_IsGrounded && move.magnitude > 0)
-			{
-				m_Animator.speed = m_AnimSpeedMultiplier;
-			}
-			else
-			{
-				// don't use that while airborne
-				m_Animator.speed = 1;
-			}
 		}
 
 
 		void HandleAirborneMovement()
 		{
-            // apply extra gravity from multiplier:
 
-            Vector3 airMove = new Vector3(Input.GetAxis("Horizontal")*6f, m_Rigidbody.velocity.y, Input.GetAxis("Vertical")*6f);
-            m_Rigidbody.velocity = Vector3.Lerp(m_Rigidbody.velocity, airMove, Time.deltaTime * 2f);
+            var locVel = transform.InverseTransformDirection(m_Rigidbody.velocity);
+            locVel.z = Input.GetAxis("Vertical") * m_AirControl;
+            locVel.x = Input.GetAxis("Horizontal") * m_AirControl;
+
+            m_Rigidbody.velocity = transform.TransformDirection(locVel);
+
+           // Vector3 airMove = new Vector3(Input.GetAxis("Horizontal")*6f, m_Rigidbody.velocity.y, Input.GetAxis("Vertical")*6f);
+           // m_Rigidbody.velocity = Vector3.Lerp(m_Rigidbody.velocity, airMove, Time.deltaTime * 2f);
 
             Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
 			m_Rigidbody.AddForce(extraGravityForce);
@@ -227,6 +216,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = Vector3.up;
 				m_Animator.applyRootMotion = false;
 			}
-		}
-	}
+		
+    }
+    */
+    }
+
+
 }
