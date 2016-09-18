@@ -30,6 +30,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 
+        public GameObject lookAtTarget;
+
 
 		void Start()
 		{
@@ -44,34 +46,40 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 
-		public void Move(Vector3 move, Vector3 turn, bool jump)
+		public void Move(float move, Vector3 turn, bool jump, float strafe)
 		{
 
-			// convert the world relative moveInput vector into a local-relative
-			// turn amount and forward amount required to head in the desired
-			// direction.
-			if (move.magnitude > 1f) move.Normalize();
-			move = transform.InverseTransformDirection(move);
-			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-			m_TurnAmount = Mathf.Atan2(move.x, move.z);
-			m_ForwardAmount = move.z;
+			m_TurnAmount = strafe;
+			m_ForwardAmount = move;
 
-            transform.LookAt(turn);
+            CheckGroundStatus();
+
+            if (Mathf.Abs (move) > 0.1f && m_IsGrounded)
+            {
+                transform.LookAt(new Vector3(lookAtTarget.transform.position.x, 0, lookAtTarget.transform.position.z));
+            }
 
             // control and velocity handling is different when grounded and airborne:
-            if (m_IsGrounded)
+            if (!m_IsGrounded)
 			{
 				HandleAirborneMovement();
 			}
+            else
+            {
+                HandleGroundedMovement(jump);
+            }
 
-			UpdateAnimator(move);
+			UpdateAnimator();
 		}
         
-        void UpdateAnimator(Vector3 move)
+        void UpdateAnimator()
         {
             // update the animator parameters
             m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
             m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+            m_Animator.SetBool("Jump", !m_IsGrounded);
+
+
 
         }
 
@@ -82,12 +90,25 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             locVel.z = Input.GetAxis("Vertical") * m_AirControl;
             locVel.x = Input.GetAxis("Horizontal") * m_AirControl;
 
-            m_Rigidbody.velocity = transform.TransformDirection(locVel);
+            m_Rigidbody.velocity = transform.TransformDirection(locVel.x, m_Rigidbody.velocity.y, locVel.z);
 
             Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
             m_Rigidbody.AddForce(extraGravityForce);
 
             m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+        }
+
+        void HandleGroundedMovement(bool jump)
+        {
+            // check whether conditions are right to allow a jump:
+            if (jump && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+            {
+                // jump!
+                m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
+                m_IsGrounded = false;
+                m_Animator.applyRootMotion = false;
+                m_GroundCheckDistance = 0.1f;
+            }
         }
 
         /*
@@ -195,9 +216,23 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_Rigidbody.velocity = v;
 			}
 		}
+        */
 
+        public void OnAnimatorMove()
+        {
+            // we implement this function to override the default root motion.
+            // this allows us to modify the positional speed before it's applied.
+            if (m_IsGrounded && Time.deltaTime > 0)
+            {
+                Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
 
-		void CheckGroundStatus()
+                // we preserve the existing y part of the current velocity.
+                v.y = m_Rigidbody.velocity.y;
+                m_Rigidbody.velocity = v;
+            }
+        }
+
+        void CheckGroundStatus()
 		{
 			RaycastHit hitInfo;
 #if UNITY_EDITOR
@@ -220,7 +255,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		
     }
-    */
+    
     }
 
 

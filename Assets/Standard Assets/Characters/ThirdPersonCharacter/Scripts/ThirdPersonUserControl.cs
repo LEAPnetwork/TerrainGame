@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             if (!m_Jump)
             {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                m_Jump = Input.GetButtonDown("Jump");
             }
         }
 
@@ -79,10 +79,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             m_TurnAmount = Vector3.RotateTowards(Vector3.Scale(transform.forward, new Vector3(1, 0, 1)).normalized, m_CamForward, 1, 1);
 
-            Debug.Log(Vector3.RotateTowards(Vector3.Scale(transform.forward, new Vector3(1, 0, 1)).normalized, m_CamForward, 1, 1));
+      
 
             // pass all parameters to the character control script
-            m_Character.Move(m_Move, m_TurnAmount, m_Jump);
+            m_Character.Move(v, m_TurnAmount, m_Jump, h);
             m_Jump = false;
         }
     }

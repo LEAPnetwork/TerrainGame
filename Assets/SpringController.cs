@@ -24,7 +24,7 @@ public class SpringController : MonoBehaviour {
 
         if(col.tag == "Player")
         {
-            col.GetComponent<Rigidbody>().AddForce(new Vector3(0, SpringStrength, 0));
+            col.GetComponent<Rigidbody>().velocity = new Vector3(col.GetComponent<Rigidbody>().velocity.x, SpringStrength, col.GetComponent<Rigidbody>().velocity.z);
             anim.SetTrigger("Engage");
         }
 
