@@ -56,7 +56,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             if (Mathf.Abs (move) > 0.1f && m_IsGrounded)
             {
-                transform.LookAt(new Vector3(lookAtTarget.transform.position.x, 0, lookAtTarget.transform.position.z));
+                transform.LookAt(new Vector3(lookAtTarget.transform.position.x, transform.position.y, lookAtTarget.transform.position.z));
             }
 
             // control and velocity handling is different when grounded and airborne:
