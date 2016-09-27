@@ -17,6 +17,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
         [SerializeField] float m_AirControl = 1f;
 
+
         Rigidbody m_Rigidbody;
 		Animator m_Animator;
 		bool m_IsGrounded;
@@ -30,8 +31,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
 
-        public GameObject lookAtTarget;
+        GameObject lookAtTarget;
 
+      
 
 		void Start()
 		{
@@ -43,7 +45,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
+
+            lookAtTarget = GameObject.FindGameObjectWithTag("Target");
 		}
+
+        
 
 
 		public void Move(float move, Vector3 turn, bool jump, float strafe)
@@ -54,7 +60,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             CheckGroundStatus();
 
-            if (Mathf.Abs (move) > 0.1f && m_IsGrounded)
+            if (Mathf.Abs (move) > 0.1f)
             {
                 transform.LookAt(new Vector3(lookAtTarget.transform.position.x, transform.position.y, lookAtTarget.transform.position.z));
             }

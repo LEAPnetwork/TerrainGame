@@ -20,6 +20,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
                 m_Cam = Camera.main.transform;  
                 m_Character = GetComponent<ThirdPersonCharacter>();
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
 
